@@ -4,7 +4,7 @@ include "koneksi.php";
 if (isset($_POST['username'])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
-    $nama = $_POST['name    '];
+    $nama = $_POST['name'];
     $role = $_POST['role']; // Pilihan role saat register
 
     $insert = mysqli_query($koneksi, "INSERT INTO user (nama, username, password, role) VALUES ('$nama', '$username', '$password', '$role')");
@@ -42,7 +42,7 @@ if (isset($_POST['username'])) {
                     </div>
                     <div class="col-md-6 right">
                         <div class="input-box">
-                            <header class="h4">Create Account</header>
+                            <header class="h4">Create Account </header>
                             <form class="user" method="POST">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="name" placeholder="Nama" required>
@@ -62,7 +62,7 @@ if (isset($_POST['username'])) {
                                         <option value="kasir">Kasir</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Register Staff</button>
                             </form>
                             <div class="text-center mt-3">
                                 <p class="small">Already have account? <a href="login.php">Login!</a></p>

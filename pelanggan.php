@@ -16,13 +16,13 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Username</th>
+                            <!-- <th>Username</th> -->
                             <th>Alamat</th>
                             <th>No Telepon</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tfoot>
+                    <!-- <tfoot>
                         <tr>
                             <th>No</th>
                             <th>Name</th>
@@ -31,7 +31,7 @@
                             <th>No Telepon</th>
                             <th>Aksi</th>
                         </tr>
-                    </tfoot>
+                    </tfoot> -->
                     <tbody>
                         <?php
                             $query  = mysqli_query($koneksi, "SELECT * FROM pelanggan");
@@ -40,12 +40,13 @@
                         ?>
                             <tr>
                                 <td><?php echo $no++;?></td>
-                                <td>Luxbert</td>
-                                <td>pln1</td>
-                                <td>0856987492</td>
+                                <td class="text-capitalize"><?php echo $data['nama_pelanggan']?></td>
+                                <!-- <td><?php echo $data['username']?></td> -->
+                                <td class="text-capitalize"><?php echo $data['alamat']?></td>
+                                <td><?php echo $data['no_telepon']?></td>
                                 <td>
-                                    <a href="">Edit</a>
-                                    <a href="">Hapus</a>
+                                <a href="?page=pelanggan_ubah&&id=<?php echo $data['id_pelanggan']; ?>" class="btn btn-primary">Edit</a>                            
+                                <a href="?page=pelanggan_hapus&&id=<?php echo $data['id_pelanggan']; ?>" class="btn btn-danger" >Hapus</a>
                                 </td>
                             </tr>
                         <?php
@@ -57,24 +58,3 @@
         </div>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
-
-</body>
-
-</html>

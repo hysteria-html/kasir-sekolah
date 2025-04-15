@@ -1,13 +1,12 @@
 <?php
 include "koneksi.php";
 error_reporting(0);
-// Jika pengguna belum login, arahkan ke login.php
 
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
-    exit(); // Pastikan tidak ada eksekusi lanjutan
+    exit();
 }
-// Simpan role pengguna dari sesi
+
 $role = isset($_SESSION['user']['role']) ? $_SESSION['user']['role'] : 'pelanggan';
 $nama = isset($_SESSION['user']['nama']) ? $_SESSION['user']['nama'] : 'User';
 
@@ -17,8 +16,6 @@ if (isset($_SESSION['pelanggan'])) {
     $id_pelanggan = isset($pelanggan['id_pelanggan']) ? $pelanggan['id_pelanggan'] : null;
 }
 
-
-// Jika pelanggan mencoba mengakses index.php, redirect ke homepage.php atau halaman pelanggan
 
 
 ?>
@@ -66,18 +63,23 @@ if (isset($_SESSION['pelanggan'])) {
 
             <!-- Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="<?= ($role == 'pelanggan' || $role == 'kasir') ? '?page=homepage' : 'index.php'; ?>">
+                <a class="nav-link" href="<?= ($role == 'kasir' || $role == 'pelanggan') ? '?page=homepage' : 'index.php'; ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
-
             <?php if ($role == 'admin') { ?>
+                <hr class="sidebar-divider">
                 <div class="sidebar-heading">Manajemen</div>
 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="?page=user">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>User</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="?page=pelanggan">
                         <i class="fas fa-fw fa-user"></i>
@@ -102,15 +104,33 @@ if (isset($_SESSION['pelanggan'])) {
                         <span>Tambah Produk</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="?page=produk_jual">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Penjualan Produk</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="?page=histori_transaksi">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Histori Transaksi</span>
+                    </a>
+                </li>
             <?php } ?>
-            <!-- Jika Admin & Supervisor -->
-            <?php if ($role == 'supervisor') { ?>
-                <div class="sidebar-heading">Manajemen</div>
 
+            <?php if ($role == 'supervisor') { ?>
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">Manajemen</div>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="?page=pelanggan">
                         <i class="fas fa-fw fa-user"></i>
                         <span>Pelanggan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="?page=pelanggan_tambah">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Tambah Pelanggan</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -125,36 +145,30 @@ if (isset($_SESSION['pelanggan'])) {
                         <span>Tambah Produk</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="?page=produk_jual">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Penjualan Produk</span>
+                    </a>
+                </li>
+            <?php } ?>
 
-            <?php } ?>
-
-            <!-- Jika Admin, Supervisor, & Kasir -->
-            <?php if ($role == 'admin' || $role == 'supervisor' || $role == 'kasir') { ?>
+            <?php if ($role == 'kasir') { ?>
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">Manajemen</div>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="?page=pembelian_tambah">
-                        <i class="fas fa-fw fa-plus-square"></i>
-                        <span>Penjualan</span>
+                    <a class="nav-link collapsed" href="?page=produk_jual">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Penjualan Produk</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="?page=produk">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Data Produk</span>
                     </a>
                 </li>
             <?php } ?>
-            <!-- Semua pengguna (admin, supervisor, kasir, pelanggan) bisa melihat histori pembelian -->
-            <?php if ($role == 'kasir' || $role == 'admin') { ?>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="?page=pembelian">
-                        <i class="fas fa-fw fa-plus-square"></i>
-                        <span>Histori Transaksi</span>
-                    </a>
-                </li>
-            <?php } ?>
-            <?php if ($role == 'pelanggan') { ?>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="?page=pelanggan_histori">
-                        <i class="fas fa-fw fa-plus-square"></i>
-                        <span>Histori Transaksi</span>
-                    </a>
-                </li>
-            <?php } ?>
-            
         </ul>
         <!-- End of Sidebar -->
 
@@ -172,7 +186,7 @@ if (isset($_SESSION['pelanggan'])) {
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
