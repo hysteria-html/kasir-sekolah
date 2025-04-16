@@ -1,6 +1,6 @@
 <?php
     if(isset($_POST['nama_pelanggan'])) {
-        $nama_pelanggan = $_POST['nama_pelanggan'];
+        $nama = $_POST['nama_pelanggan'];
         $alamat = $_POST['alamat'];
         $no_telepon = $_POST['no_telepon'];
         $username = $_POST['username'];
@@ -12,7 +12,7 @@
             echo '<script>alert("Username sudah digunakan. Silakan gunakan username lain.");</script>';
         } else {
             $query = mysqli_query($koneksi, "INSERT INTO pelanggan (nama_pelanggan, alamat, no_telepon, username, password) 
-                     VALUES ('$nama_pelanggan','$alamat','$no_telepon','$username','$password')");
+                     VALUES ('$nama','$alamat','$no_telepon','$username','$password')");
             if($query){
                 echo '<script>alert("Data pelanggan berhasil ditambahkan");location.href="?page=pelanggan"</script>';
             } else {
@@ -49,6 +49,8 @@
                                 <label for="name">No Telepon</label>
                                 <input class="form-control" type="number" name="no_telepon" required>
                             </div>
+                            
+                            <!-- Field Tambahan untuk Login Pelanggan -->
                             <div class="form-group">
                                 <label for="username">Username untuk Pelanggan</label>
                                 <input class="form-control" type="text" name="username" required>
@@ -57,6 +59,7 @@
                                 <label for="password">Password untuk Pelanggan</label>
                                 <input class="form-control" type="password" name="password" required>
                             </div>
+                            
                             <a href="?page=pelanggan" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Kembali</a>                
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>

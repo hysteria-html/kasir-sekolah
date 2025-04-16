@@ -22,7 +22,7 @@ if (isset($_POST['nama_produk'])) {
     <!-- DataTales Example -->
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header py-3">
                     <h5 class="m-0 font-weight-bold text-primary">Tambah Data Produk</h5>
                 </div>

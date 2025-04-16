@@ -3,39 +3,38 @@ include "koneksi.php";
 
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
-    $password = md5($_POST['password']); // Pastikan metode enkripsi sama dengan di database
+    $password = md5($_POST['password']); 
     
-    // Cek apakah login sebagai admin/kasir (dari tabel user)
+    
     $cek_admin = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password'");
     
-    // Cek apakah login sebagai pelanggan (dari tabel pelanggan)
+    
     $cek_pelanggan = mysqli_query($koneksi, "SELECT * FROM pelanggan WHERE username='$username' AND password='$password'");
     
-    // Jika ditemukan di tabel user (admin/kasir)
+  
     if (mysqli_num_rows($cek_admin) > 0) {
         $data = mysqli_fetch_array($cek_admin);
         $_SESSION['user'] = $data;
-        $_SESSION['role'] = $data['role']; // Simpan role di session
-        $_SESSION['login_type'] = 'user'; // Tandai jenis login
-        
-        // Redirect berdasarkan role
+        $_SESSION['role'] = $data['role']; 
+        $_SESSION['login_type'] = 'user'; 
+       
         if ($data['role'] == 'kasir') {
             echo '<script>alert("Selamat Datang, ' . $data['nama'] . '!"); window.location.href="index.php?page=homepage";</script>';
         } else {
             echo '<script>alert("Selamat Datang, ' . $data['nama'] . '!"); window.location.href="index.php?page=home";</script>';
         }
     } 
-    // Jika ditemukan di tabel pelanggan
+    
     else if (mysqli_num_rows($cek_pelanggan) > 0) {
         $pelanggan = mysqli_fetch_array($cek_pelanggan);
         
-        // Simpan data pelanggan ke session
-        $_SESSION['user'] = $pelanggan; // Gunakan session user yang sama untuk konsistensi
-        $_SESSION['pelanggan'] = $pelanggan; // Tetap simpan untuk kompatibilitas
-        $_SESSION['role'] = 'pelanggan'; // Menandai bahwa ini adalah session pelanggan
-        $_SESSION['login_type'] = 'pelanggan'; // Tandai jenis login
         
-        // Arahkan ke halaman histori transaksi pelanggan
+        $_SESSION['user'] = $pelanggan;
+        $_SESSION['pelanggan'] = $pelanggan; 
+        $_SESSION['role'] = 'pelanggan'; 
+        $_SESSION['login_type'] = 'pelanggan'; 
+        
+      
         echo '<script>alert("Selamat Datang, ' . $pelanggan['nama'] . '!"); window.location.href="index.php?page=homepage";</script>';
     } 
     else {
@@ -59,13 +58,15 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
+    <div class="back-image">
     <div class="wrapper">
+            <img src="images/gunung-login-resize.png" alt="">
         <div class="container main">
-            <div class="row">
-                <div class="col-md-6 side-image">
-                    <!-- Background image area -->
-                </div>
-                <div class="col-md-6 right">
+                <div class="row">
+                    <div class="col-md-6 side-image">
+                        <!-- Background image area -->
+                    </div>
+                    <div class="col-md-6 right">
                     <div class="input-box">
                         <header>Login Sistem</header>
                         <form class="user" method="POST">
@@ -83,6 +84,7 @@ if (isset($_POST['login'])) {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 

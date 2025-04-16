@@ -105,13 +105,13 @@ if (isset($_SESSION['pelanggan'])) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="?page=produk_jual">
+                    <a class="nav-link collapsed" href="?page=pembelian_tambah">
                         <i class="fas fa-fw fa-folder"></i>
                         <span>Penjualan Produk</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="?page=histori_transaksi">
+                    <a class="nav-link collapsed" href="?page=pembelian">
                         <i class="fas fa-fw fa-folder"></i>
                         <span>Histori Transaksi</span>
                     </a>
@@ -169,7 +169,16 @@ if (isset($_SESSION['pelanggan'])) {
                     </a>
                 </li>
             <?php } ?>
+            <?php if($role == 'pelanggan'){ ?>
+                <li class="nav-item">
+                        <a class="nav-link collapsed" href="?page=pelanggan_histori">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Histori Pembelian</span>
+                        </a>
+                    </li>
+            <?php } ?>
         </ul>
+        
         <!-- End of Sidebar -->
 
 
@@ -199,11 +208,15 @@ if (isset($_SESSION['pelanggan'])) {
 
                                     if (isset($_SESSION['user']['nama']) && $_SESSION['user']['nama']) {
                                         $nama_tampil = ucwords($_SESSION['user']['nama']);
-                                        if (isset($_SESSION['user']['role'])) {
+                                        if (isset($_SESSION['user']['role']) && $_SESSION['user']['role']) {
                                             $nama_tampil .= " (" . ucfirst($_SESSION['user']['role']) . ")";
+                                        } else {
+                                            $nama_tampil .= " (Pelanggan)";
                                         }
-                                    } elseif (isset($_SESSION['pelanggan']['nama_pelanggan']) && $_SESSION['pelanggan']['nama_pelanggan']) {
+                                    } else if (isset($_SESSION['pelanggan']['nama_pelanggan']) && $_SESSION['pelanggan']['nama_pelanggan']) {
                                         $nama_tampil = ucwords($_SESSION['pelanggan']['nama_pelanggan']);
+                                    } else {
+                                        $nama_tampil = "Pelanggan";
                                     }
 
                                     echo htmlspecialchars($nama_tampil);

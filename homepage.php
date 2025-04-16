@@ -58,7 +58,7 @@
                 <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name Produk</th>
+                            <th>Nama Produk</th>
                             <!-- <th>Username</th> -->
                             <th>Harga</th>
                             <th>Stok</th>
